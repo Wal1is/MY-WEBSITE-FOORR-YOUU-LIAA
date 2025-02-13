@@ -16,8 +16,8 @@
 
         #envelope {
             position: relative;
-            width: 280px;
-            height: 180px;
+            width: 400px; /* Increased size */
+            height: 250px; /* Increased size */
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             margin: 0 auto;
@@ -35,19 +35,19 @@
         }
 
         .flap {
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-bottom: 82px solid transparent;
-            border-top: 98px solid var(--color-flap);
+            border-left: 200px solid transparent; /* Adjusted size */
+            border-right: 200px solid transparent; /* Adjusted size */
+            border-bottom: 100px solid transparent;
+            border-top: 150px solid var(--color-flap); /* Adjusted size */
             transform-origin: top;
             pointer-events: none;
         }
 
         .pocket {
-            border-left: 140px solid var(--color-env);
-            border-right: 140px solid var(--color-env);
-            border-bottom: 90px solid var(--color-env2);
-            border-top: 90px solid transparent;
+            border-left: 200px solid var(--color-env); /* Adjusted size */
+            border-right: 200px solid var(--color-env); /* Adjusted size */
+            border-bottom: 120px solid var(--color-env2); /* Adjusted size */
+            border-top: 120px solid transparent; /* Adjusted size */
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
         }
@@ -57,7 +57,7 @@
             background-color: #e0d9dd;
             width: 90%;
             margin: 0 auto;
-            height: 90%;
+            height: 120%; /* Increased height */
             top: 5%;
             border-radius: 6px;
             box-shadow: 0 2px 26px rgba(0,0,0,.08);
@@ -101,7 +101,7 @@
         }
 
         .envlope-wrapper {
-            height: 380px;
+            height: 500px; /* Adjusted height */
             margin-top: 50px;
             animation: float 3s ease-in-out infinite;
         }
@@ -125,13 +125,13 @@
         }
 
         .open .letter {
-            transform: translateY(-80px) rotate(-2deg); /* Increase translateY to hide text */
+            transform: translateY(-200px) rotate(-2deg); /* Adjusted for larger envelope */
             transition: transform 0.4s 0.6s ease, z-index 0.6s;
             z-index: 2;
         }
 
         .open .letter.dragged {
-            transform: translateY(-180px) rotate(-2deg); /* Adjust for dragging */
+            transform: translateY(-400px) rotate(-2deg); /* Adjust for dragging */
         }
 
         .letter-corner {
@@ -305,33 +305,20 @@
             btnOpen.on('click', open);
             btnReset.on('click', close);
 
-            letter.on('mousedown', function(e) {
-                e.preventDefault();
-                $(document).on('mousemove', move);
-                $(document).on('mouseup', stop);
-            });
-
-            function move(e) {
-                letter.addClass('dragged');
-                const offset = e.pageY - envelope.offset().top;
-                letter.css('transform', `translateY(${-offset}px) rotate(-2deg)`);
-                if (offset > 100) {
-                    showHearts();
-                }
-            }
-
-            function stop() {
-                $(document).off('mousemove', move);
-                $(document).off('mouseup', stop);
-            }
-
             function open() {
                 envelope.removeClass("close").addClass("open");
+                setTimeout(dragOut, 600); // Automatically drag out after opening
             }
 
             function close() {
                 envelope.removeClass("open").addClass("close");
                 letter.removeClass('dragged').css('transform', 'translateY(0px) rotate(-2deg)');
+            }
+
+            function dragOut() {
+                letter.addClass('dragged');
+                letter.css('transform', 'translateY(-400px) rotate(-2deg)'); // Adjust for larger size
+                showHearts();
             }
 
             function showHearts() {
