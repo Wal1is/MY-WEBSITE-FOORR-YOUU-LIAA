@@ -63,6 +63,7 @@
             box-shadow: 0 2px 26px rgba(0,0,0,.08);
             padding: 15px;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .letter:after {
@@ -124,12 +125,14 @@
         }
 
         .open .letter {
-            transform: translateY(-60px) rotate(-2deg);
+            transform: translateY(-80px) rotate(-2deg); /* Increase translateY to hide text */
             transition: transform 0.4s 0.6s ease, z-index 0.6s;
             z-index: 2;
         }
 
-        
+        .open .letter.dragged {
+            transform: translateY(-180px) rotate(-2deg); /* Adjust for dragging */
+        }
 
         .letter-corner {
             position: absolute;
@@ -294,6 +297,7 @@
     <script>
         $(document).ready(function() {
             const envelope = $('#envelope');
+            const letter = $('.letter');
             const btnOpen = $("#open");
             const btnReset = $("#reset");
 
@@ -301,12 +305,42 @@
             btnOpen.on('click', open);
             btnReset.on('click', close);
 
+            letter.on('mousedown', function(e) {
+                e.preventDefault();
+                $(document).on('mousemove', move);
+                $(document).on('mouseup', stop);
+            });
+
+            function move(e) {
+                letter.addClass('dragged');
+                const offset = e.pageY - envelope.offset().top;
+                letter.css('transform', `translateY(${-offset}px) rotate(-2deg)`);
+                if (offset > 100) {
+                    showHearts();
+                }
+            }
+
+            function stop() {
+                $(document).off('mousemove', move);
+                $(document).off('mouseup', stop);
+            }
+
             function open() {
                 envelope.removeClass("close").addClass("open");
             }
 
             function close() {
                 envelope.removeClass("open").addClass("close");
+                letter.removeClass('dragged').css('transform', 'translateY(0px) rotate(-2deg)');
+            }
+
+            function showHearts() {
+                $(".heart").each(function() {
+                    $(this).css({ animation: 'none' }).delay(10).queue(function(next) {
+                        $(this).css({ animation: '' });
+                        next();
+                    });
+                });
             }
         });
     </script>
