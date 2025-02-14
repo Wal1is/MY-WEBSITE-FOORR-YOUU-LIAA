@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Valetine Envelope For Lia :D</title>
+    <title>Pink Envelope</title>
     <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,8 +16,8 @@
 
         #envelope {
             position: relative;
-            width: 400px; /* Increased size */
-            height: 250px; /* Increased size */
+            width: 280px;
+            height: 180px;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             margin: 0 auto;
@@ -35,19 +35,19 @@
         }
 
         .flap {
-            border-left: 200px solid transparent; /* Adjusted size */
-            border-right: 200px solid transparent; /* Adjusted size */
-            border-bottom: 100px solid transparent;
-            border-top: 150px solid var(--color-flap); /* Adjusted size */
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 82px solid transparent;
+            border-top: 98px solid var(--color-flap);
             transform-origin: top;
             pointer-events: none;
         }
 
         .pocket {
-            border-left: 200px solid var(--color-env); /* Adjusted size */
-            border-right: 200px solid var(--color-env); /* Adjusted size */
-            border-bottom: 120px solid var(--color-env2); /* Adjusted size */
-            border-top: 120px solid transparent; /* Adjusted size */
+            border-left: 140px solid var(--color-env);
+            border-right: 140px solid var(--color-env);
+            border-bottom: 90px solid var(--color-env2);
+            border-top: 90px solid transparent;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
         }
@@ -57,13 +57,12 @@
             background-color: #e0d9dd;
             width: 90%;
             margin: 0 auto;
-            height: 120%; /* Increased height */
+            height: 90%;
             top: 5%;
             border-radius: 6px;
             box-shadow: 0 2px 26px rgba(0,0,0,.08);
             padding: 15px;
             box-sizing: border-box;
-            overflow: hidden;
         }
 
         .letter:after {
@@ -101,7 +100,7 @@
         }
 
         .envlope-wrapper {
-            height: 500px; /* Adjusted height */
+            height: 380px;
             margin-top: 50px;
             animation: float 3s ease-in-out infinite;
         }
@@ -125,14 +124,12 @@
         }
 
         .open .letter {
-            transform: translateY(-200px) rotate(-2deg); /* Adjusted for larger envelope */
+            transform: translateY(-60px) rotate(-2deg);
             transition: transform 0.4s 0.6s ease, z-index 0.6s;
             z-index: 2;
         }
 
-        .open .letter.dragged {
-            transform: translateY(-400px) rotate(-2deg); /* Adjust for dragging */
-        }
+        
 
         .letter-corner {
             position: absolute;
@@ -268,12 +265,8 @@
                 <div class="letter-corner corner-tl"></div>
                 <div class="letter-corner corner-br"></div>
                 <div class="message">
-                    <p>Every moment with you feels like a beautiful dream come true.</p>
-                    <p>You make my heart smile and my soul shine brighter :)</p>
-                    <p>Thank you for being my everything.</p>
-                    <p>For your love, kindness anndd endless support.</p>
-                    <p>I feel incredibly Lucky to walk this journey with you by my side.</p>
-                    <p>I love you more than words could ever express</p>
+                    <p>I love you,</p>
+                    <p>most ardently</p>
                 </div>
             </div>
             <div class="hearts">
@@ -297,7 +290,6 @@
     <script>
         $(document).ready(function() {
             const envelope = $('#envelope');
-            const letter = $('.letter');
             const btnOpen = $("#open");
             const btnReset = $("#reset");
 
@@ -307,27 +299,10 @@
 
             function open() {
                 envelope.removeClass("close").addClass("open");
-                setTimeout(dragOut, 600); // Automatically drag out after opening
             }
 
             function close() {
                 envelope.removeClass("open").addClass("close");
-                letter.removeClass('dragged').css('transform', 'translateY(0px) rotate(-2deg)');
-            }
-
-            function dragOut() {
-                letter.addClass('dragged');
-                letter.css('transform', 'translateY(-400px) rotate(-2deg)'); // Adjust for larger size
-                showHearts();
-            }
-
-            function showHearts() {
-                $(".heart").each(function() {
-                    $(this).css({ animation: 'none' }).delay(10).queue(function(next) {
-                        $(this).css({ animation: '' });
-                        next();
-                    });
-                });
             }
         });
     </script>
